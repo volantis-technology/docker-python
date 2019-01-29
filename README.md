@@ -4,31 +4,32 @@
 
 ## Introduction
 
-This repo contains necesary files to build docker image for Python.
+This repo contains necesary files to build docker image for Python + Falcon framework.
 
 Things that will be installed:
 
-- everything in [volantis/debian:stretch](https://hub.docker.com/r/volantis/debian)
-- everything in [Miniconda3](https://repo.continuum.io/miniconda)
-- [CPython 3.7.x](https://github.com/python/cpython)
-- [ipython](https://ipython.org/)
-- [ptpython](https://github.com/prompt-toolkit/ptpython)
+- everything in [volantis/python:3.7](https://hub.docker.com/r/volantis/python)
+- [falcon 1.4.1](https://falconframework.org)
+- [ujson 1.35](https://github.com/esnme/ultrajson)
+- [gunicorn 19.9.0](https://gunicorn.org)
+- [gevent 1.4.0](http://www.gevent.org)
+- [meinheld 0.6.1](https://github.com/mopemope/meinheld)
 
 ## How to build
 
 - clone this repo
 ```bash
-git clone https://github.com/volantis-technology/docker-python.git && cd docker-python
+git clone https://github.com/volantis-technology/docker-python.git && cd docker-python && git checkout 3.7-falcon
 ```
 
 - build the image
 ```bash
-docker build . -t python
+docker build . -t python:falcon
 ```
 
 - check by running the image
 ```bash
-docker run -it --rm python
+docker run -it --rm python:falcon
 ```
 
 ## Maintainer

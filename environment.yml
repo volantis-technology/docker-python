@@ -1,8 +1,0 @@
-name: base
-dependencies:
-  - python>=3.7,<3.8
-  - pip:
-    - ipython
-    - ptpython
-
-# vim:set ft=yaml sw=2 ts=2:
