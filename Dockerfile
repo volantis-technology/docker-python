@@ -8,11 +8,11 @@ ADD ./pip.conf /etc/
 ARG MINICONDA_VERSION=latest
 ENV MINICONDA_HOME=/usr/local/miniconda
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
-RUN curl -skSL -O https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    apt-get-install bzip2 && \
+RUN apt-get-install bzip2 && \
+    curl -skSL -O https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p ${MINICONDA_HOME} && \
-    apt-get-remove bzip2 && \
     rm -f Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    apt-get-remove bzip2 && \
     conda update -y -q -n base conda pip && \
     conda env update -q -f /usr/local/environment.yml && \
     conda clean -y -q -a && \
