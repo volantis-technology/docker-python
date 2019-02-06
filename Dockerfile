@@ -1,8 +1,5 @@
 FROM volantis/debian:stretch
 
-# Install necessary packages
-RUN apt-get-install bzip2
-
 # Add additional configuration files
 ADD ./environment.yml /usr/local/
 ADD ./pip.conf /etc/
@@ -12,7 +9,9 @@ ARG MINICONDA_VERSION=latest
 ENV MINICONDA_HOME=/usr/local/miniconda
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 RUN curl -skSL -O https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    apt-get-install bzip2 && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p ${MINICONDA_HOME} && \
+    apt-get-remove bzip2 && \
     rm -f Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     conda update -y -q -n base conda pip && \
     conda env update -q -f /usr/local/environment.yml && \
@@ -27,6 +26,6 @@ RUN curl -skSL -O https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VER
     echo "conda activate base" >> /home/${DEFAULT_USER}/.bashrc
 
 # Execute command
-CMD [ "ptipython" ]
+CMD [ "noroot", "ptipython" ]
 
 # vim:set ft=dockerfile sw=4 ts=4:
