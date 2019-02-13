@@ -1,6 +1,8 @@
-[![](https://img.shields.io/badge/GitHub-%E2%86%92-brightgreen.svg)](https://github.com/volantis-technology/docker-python) [![](https://img.shields.io/badge/Docker%20Hub-%E2%86%92-blue.svg)](https://hub.docker.com/r/volantis/python)
+[![](https://img.shields.io/badge/Docker%20Hub-%E2%86%92-blue.svg?style=flat-square&logo=docker&logoColor=white)](https://hub.docker.com/r/volantis/python)
 
-# docker-python
+# Docker Python
+
+[![](https://img.shields.io/badge/Python-3.7.x-orange.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
 
 ## Introduction
 
@@ -14,13 +16,11 @@ Things that will be installed:
 - [gunicorn 19.9.0](https://gunicorn.org)
 - [gevent 1.4.0](http://www.gevent.org)
 - [meinheld 0.6.1](https://github.com/mopemope/meinheld)
+- [WebTest==2.0.33](https://docs.pylonsproject.org/projects/webtest)
 
 ## How to build
 
 - clone this repo
-```bash
-git clone https://github.com/volantis-technology/docker-python.git && cd docker-python && git checkout 3.7-falcon
-```
 
 - build the image
 ```bash
@@ -36,4 +36,4 @@ docker run -it --rm python:falcon
 
 Akrom Khasani | `akrom (at) volantis (dot) io`
 
-[![](https://img.shields.io/badge/Made%20with%20&#9829;-@VolantisIO-ff69b4.svg)](https://volantis.io)
+[![](https://img.shields.io/badge/Made%20with%20&hearts;-@VolantisIO-orange.svg?style=flat-square)](https://volantis.io)
