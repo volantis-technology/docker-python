@@ -9,23 +9,16 @@ ARG MINICONDA_VERSION=latest
 ENV MINICONDA_HOME=/usr/local/miniconda
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 RUN apt-get-install bzip2 && \
-    curl -skSL -O https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    curl -skSLO https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     /bin/bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p ${MINICONDA_HOME} && \
     rm -f Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     apt-get-remove bzip2 && \
     conda update -y -q -n base conda pip && \
     conda env update -q -f /usr/local/environment.yml && \
     conda clean -y -q -a && \
-    rm -rf ${MINICONDA_HOME}/pkgs/ && \
-    chown -R ${DEFAULT_USER}:${DEFAULT_USER} ${MINICONDA_HOME} && \
-    \
-    ln -sf ${MINICONDA_HOME}/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". ${MINICONDA_HOME}/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc && \
-    echo ". ${MINICONDA_HOME}/etc/profile.d/conda.sh" >> /home/${DEFAULT_USER}/.bashrc && \
-    echo "conda activate base" >> /home/${DEFAULT_USER}/.bashrc
+    rm -rf ${MINICONDA_HOME}/pkgs/
 
 # Execute command
-CMD [ "noroot", "ptipython" ]
+CMD [ "noroot", "python" ]
 
 # vim:set ft=dockerfile sw=4 ts=4:
