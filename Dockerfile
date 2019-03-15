@@ -1,25 +1,29 @@
-FROM volantis/debian:stretch
+FROM volantis/debian:stretch AS python-builder
 
-# Add additional configuration files
 ADD ./environment.yml /usr/local/
 ADD ./pip.conf /etc/
 
-# Install python
 ARG MINICONDA_VERSION=latest
-ENV MINICONDA_HOME=/usr/local/miniconda
 RUN apt-get-install bzip2 && \
     curl -skSLO https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p ${MINICONDA_HOME} && \
+    bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p /usr/local/miniconda && \
     rm -f Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     apt-get-remove bzip2 && \
-    ${MINICONDA_HOME}/bin/conda update -y -n base python conda pip && \
-    ${MINICONDA_HOME}/bin/conda update -y -n base --all && \
-    ${MINICONDA_HOME}/bin/conda env update -f /usr/local/environment.yml && \
-    ${MINICONDA_HOME}/bin/conda clean -y -q -a && \
-    rm -rf ${MINICONDA_HOME}/pkgs/
+    /usr/local/miniconda/bin/conda update -y -n base python conda pip && \
+    /usr/local/miniconda/bin/conda update -y -n base --all && \
+    /usr/local/miniconda/bin/conda env update -v -f /usr/local/environment.yml && \
+    /usr/local/miniconda/bin/conda clean -q -y -a && \
+    rm -rf /usr/local/miniconda/pkgs/
+
+
+FROM volantis/debian:stretch
+
+# Install python
+ENV MINICONDA_HOME=/usr/local/miniconda
+COPY --from=python-builder /usr/local/miniconda ${MINICONDA_HOME}/
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 
-# Execute command
-CMD [ "noroot", "python" ]
+# Add pip config
+ADD ./pip.conf /etc/
 
 # vim:set ft=dockerfile sw=4 ts=4:
