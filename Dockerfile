@@ -1,10 +1,8 @@
-FROM volantis/debian:stretch
+FROM volantis/debian:stretch AS builder
 
-# Add additional configuration files
 ADD ./environment.yml /usr/local/
 ADD ./pip.conf /etc/
 
-# Install python
 ARG MINICONDA_VERSION=latest
 ARG MINICONDA_HOME=/usr/local/miniconda
 RUN apt-get-install bzip2 && \
@@ -18,13 +16,16 @@ RUN apt-get-install bzip2 && \
     ${MINICONDA_HOME}/bin/conda clean -y -q -a && \
     rm -rf ${MINICONDA_HOME}/pkgs/
 
+
 FROM volantis/debian:stretch
 
-ADD /etc/pip.conf /etc/
-
+# Install python
 ENV ${MINICONDA_HOME}=/usr/local/miniconda
-ADD ${MINICONDA_HOME} ${MINICONDA_HOME}/
+COPY --from=builder ${MINICONDA_HOME} ${MINICONDA_HOME}/
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
+
+# Add pip config
+ADD ./pip.conf /etc/
 
 CMD [ "noroot", "python" ]
 
