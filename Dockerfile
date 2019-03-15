@@ -20,7 +20,7 @@ RUN apt-get-install bzip2 && \
 FROM volantis/debian:stretch
 
 # Install python
-ENV ${MINICONDA_HOME}=/usr/local/miniconda
+ENV MINICONDA_HOME=/usr/local/miniconda
 COPY --from=builder ${MINICONDA_HOME} ${MINICONDA_HOME}/
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 
