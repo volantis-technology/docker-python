@@ -12,10 +12,10 @@ RUN apt-get-install bzip2 && \
     bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p ${MINICONDA_HOME} && \
     rm -f Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     apt-get-remove bzip2 && \
-    conda update -y -n base python conda pip && \
-    conda update -y -n base --all && \
-    conda env update -f /usr/local/environment.yml && \
-    conda clean -y -q -a && \
+    ${MINICONDA_HOME}/bin/conda update -y -n base python conda pip && \
+    ${MINICONDA_HOME}/bin/conda update -y -n base --all && \
+    ${MINICONDA_HOME}/bin/conda env update -f /usr/local/environment.yml && \
+    ${MINICONDA_HOME}/bin/conda clean -y -q -a && \
     rm -rf ${MINICONDA_HOME}/pkgs/
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 
