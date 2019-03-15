@@ -27,6 +27,4 @@ ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 # Add pip config
 ADD ./pip.conf /etc/
 
-CMD [ "noroot", "python" ]
-
 # vim:set ft=dockerfile sw=4 ts=4:
