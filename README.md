@@ -19,14 +19,14 @@ Things that will be installed:
 - clone this repo
 
 - build the image
-```bash
-docker build . -t python
-```
+  ```bash
+  docker build . -t python
+  ```
 
 - check by running the image
-```bash
-docker run -it --rm python
-```
+  ```bash
+  docker run -it --rm python
+  ```
 
 ## Maintainer
 
