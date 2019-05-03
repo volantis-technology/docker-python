@@ -10,8 +10,7 @@ This repo contains necesary files to build docker image for Python.
 
 Things that will be installed:
 
-- everything in [volantis/debian:stretch](https://hub.docker.com/r/volantis/debian)
-- everything in [Miniconda3](https://repo.continuum.io/miniconda)
+- [Miniconda3](https://repo.continuum.io/miniconda)
 - [CPython 3.7.x](https://github.com/python/cpython)
 
 ## How to build
@@ -20,12 +19,12 @@ Things that will be installed:
 
 - build the image
   ```bash
-  docker build . -t python
+  docker build . -t volantis/python
   ```
 
 - check by running the image
   ```bash
-  docker run -it --rm python
+  docker run -it --rm volantis/python python --version
   ```
 
 ## Maintainer
