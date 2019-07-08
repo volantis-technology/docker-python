@@ -26,5 +26,6 @@ ADD ./pip.conf /etc/
 
 # Modify entrypoint
 ADD ./entrypoint.sh /usr/local/bin/
+RUN chmod a+x /usr/local/bin/entrypoint.sh
 
 # vim:set ft=dockerfile sw=4 ts=4:
