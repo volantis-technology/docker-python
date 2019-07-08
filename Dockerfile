@@ -3,7 +3,7 @@ FROM volantis/debian:stretch AS builder
 ARG MINICONDA_VERSION=latest
 RUN apt-get-install bzip2 && \
     curl -skSLO https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
-    bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -f -b -p /usr/local/miniconda && \
+    bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -b -p /usr/local/miniconda && \
     /usr/local/miniconda/bin/conda clean -q -y -a && \
     rm -rf /usr/local/miniconda/pkgs
 ADD ./pinned /usr/local/miniconda/conda-meta/
@@ -19,8 +19,12 @@ FROM volantis/debian:stretch
 ENV MINICONDA_HOME=/usr/local/miniconda
 COPY --from=builder /usr/local/miniconda ${MINICONDA_HOME}/
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
+ENV CONDA_INSTALL_PACKAGES= PIP_INSTALL_PACKAGES=
 
 # Add pip config
 ADD ./pip.conf /etc/
+
+# Modify entrypoint
+ADD ./entrypoint.sh /usr/local/bin/
 
 # vim:set ft=dockerfile sw=4 ts=4:
