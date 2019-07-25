@@ -21,6 +21,9 @@ COPY --from=builder /usr/local/miniconda ${MINICONDA_HOME}/
 ENV PATH=${MINICONDA_HOME}/bin:${PATH}
 ENV CONDA_INSTALL_PACKAGES= PIP_INSTALL_PACKAGES=
 
+# Add conda config
+ADD ./condarc ${MINICONDA_HOME}/
+
 # Add pip config
 ADD ./pip.conf /etc/
 

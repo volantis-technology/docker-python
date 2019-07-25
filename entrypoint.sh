@@ -2,8 +2,8 @@
 set -e
 
 if [[ -n ${CONDA_INSTALL_PACKAGES} ]]; then
-    conda install -S -y ${CONDA_INSTALL_PACKAGES}
-    conda clean -q -y -a
+    conda install -S ${CONDA_INSTALL_PACKAGES}
+    conda clean -q -a
 fi
 
 if [[ -n ${PIP_INSTALL_PACKAGES} ]]; then
