@@ -2,13 +2,14 @@ FROM volantis/debian:stretch AS builder
 
 ARG MINICONDA_VERSION=latest
 RUN apt-get-install bzip2 && \
-    curl -skSLO https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
+    curl -kSL -O https://repo.continuum.io/miniconda/Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh && \
     bash Miniconda3-${MINICONDA_VERSION}-Linux-x86_64.sh -b -p /usr/local/miniconda && \
     /usr/local/miniconda/bin/conda clean -q -y -a && \
     rm -rf /usr/local/miniconda/pkgs
 ADD ./.condarc /usr/local/miniconda/
 ADD ./pinned /usr/local/miniconda/conda-meta/
-RUN /usr/local/miniconda/bin/conda update -n base python conda pip && \
+RUN /usr/local/miniconda/bin/conda install -n base conda==4.6.* && \
+    /usr/local/miniconda/bin/conda update -n base python pip && \
     /usr/local/miniconda/bin/conda update -n base --all && \
     /usr/local/miniconda/bin/conda clean -q -a && \
     rm -rf /usr/local/miniconda/pkgs
