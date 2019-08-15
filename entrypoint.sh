@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
 
-if [[ -n ${CONDA_INSTALL_PACKAGES} ]]; then
-    conda install -S ${CONDA_INSTALL_PACKAGES}
+if [[ -n ${EXTRA_CONDA_PACKAGES} ]]; then
+    conda install -S ${EXTRA_CONDA_PACKAGES}
     conda clean -q -a
 fi
 
-if [[ -n ${PIP_INSTALL_PACKAGES} ]]; then
-    pip install ${PIP_INSTALL_PACKAGES}
+if [[ -n ${EXTRA_PIP_PACKAGES} ]]; then
+    pip install ${EXTRA_PIP_PACKAGES}
 fi
 
 case $1 in
