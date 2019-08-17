@@ -4,10 +4,11 @@ set -e
 if [[ -n ${EXTRA_CONDA_PACKAGES} ]]; then
     conda install -S ${EXTRA_CONDA_PACKAGES}
     conda clean -q -a
+    rm -rf /usr/local/miniconda/pkgs
 fi
 
 if [[ -n ${EXTRA_PIP_PACKAGES} ]]; then
-    pip install ${EXTRA_PIP_PACKAGES}
+    pip install --no-cache-dir ${EXTRA_PIP_PACKAGES}
 fi
 
 case $1 in

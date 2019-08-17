@@ -27,8 +27,9 @@ ENV EXTRA_CONDA_PACKAGES= EXTRA_PIP_PACKAGES=
 ADD ./pip.conf /etc/
 
 # Modify package pinning
-RUN python -c "import sys; print('python=={}.{}.{}\nconda==4.6.*'.format(*sys.version_info[:3]))" \
-    > ${MINICONDA_HOME}/conda-meta/pinned
+RUN python -c "import sys; print('python=={}.{}.{}'.format(*sys.version_info[:3]))" \
+        > ${MINICONDA_HOME}/conda-meta/pinned && \
+    echo "conda==4.6.*" >> ${MINICONDA_HOME}/conda-meta/pinned
 
 # Modify entrypoint
 ADD ./entrypoint.sh /usr/local/bin/
